@@ -27,19 +27,19 @@ class Command
 		when /\A ?all artists ?\n\z/
 			["all_artists"]
 		when /\A ?add track "[^"]+" by "[^"]+" ?\n\z/
-			command = ["add_track"] + extract(text)
+			["add_track"] + extract(text)
 		when /\A ?add artist "[^"]+" ?\n\z/
-			command = ["add_artist"] + extract(text)
+			["add_artist"] + extract(text)
 		when /\A ?info track "[^"]+" ?\n\z/
-			command = ["info_track"] + extract(text)
+			["info_track"] + extract(text)
 		when /\A ?info artist "[^"]+" ?\n\z/
-			command = ["info_artist"] + extract(text)
+			["info_artist"] + extract(text)
 		when /\A ?play track "[^"]+" ?\n\z/
-			command = ["play_track"] + extract(text)
+			["play_track"] + extract(text)
 		when /\A ?count tracks by "[^"]+" ?\n\z/
-			command = ["count_tracks_by"] + extract(text)
+			["count_tracks_by"] + extract(text)
 		when /\A ?list tracks by "[^"]+" ?\n\z/
-			command = ["list_tracks_by"] + extract(text)
+			["list_tracks_by"] + extract(text)
 		else
 			false
 		end

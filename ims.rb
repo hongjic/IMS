@@ -12,9 +12,9 @@ class IMS
 	end
 
 	def run 
-		puts "Wellcome to IMS."
-		puts "You can use 'help' to browse all available commands."
-		puts "Notice that notes(\"keyword\") are required when you type in keywords."
+		puts "Wellcome to IMS.",
+			"You can use 'help' to browse all available commands.",
+			"Notice that notes(\"keyword\") are required when you type in keywords."
 		while (true)
 			print "> "
 			text = gets
