@@ -182,3 +182,6 @@ class IMS
 		end
 	end
 end
+
+ims = IMS.new
+ims.run
