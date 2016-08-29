@@ -22,7 +22,7 @@ class IMS
 				exit_ims
 			when "help\n", "info\n", "info track\n", "info artist\n", "add artist\n",
 				"add track\n", "play track\n", "count tracks\n", "list tracks\n"
-				eval(command)
+				eval(command.gsub('', '_'))
 			else 
 				puts "no such command" 
 			end
@@ -47,5 +47,30 @@ class IMS
 	end
 
 	def info
+		# the last 3 tracks played
+		len_of_playlist = @storage.playlist.length
+		len_of_playlist = 3 if len_of_playlist>3
+		if len_of_playlist > 0
+			puts "The last #{len_of_playlist} tracks played are:"
+		else
+			puts "No trakcs played yet."
+		end
+		len_of_playlist.times do |index|
+			if index<len_of_playlist-1
+				print @storage.playlist[index].get_name+", " 
+			else
+				puts @storage.playlist[index].get_name
+			end
+		end
+
+		# total number of tracks
+		puts "The total number of tracks are: #{@storage.tracks.length}"
+
+		# total number of artists
+		puts "The total number of artists are: #{@storage.artists.length}"
+	end
+
+	def add_track trackname, artistid
+		return false if 
 	end
 end
