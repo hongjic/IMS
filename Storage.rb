@@ -8,8 +8,17 @@ class Storage
 	attr_accessor :playlist
 	attr_accessor :artists
 	attr_accessor :tracks
+	attr_accessor :playtime
 
+	@@history_max = 3
 	@@store = PStore.new('storage.pstore')
+
+	def clear
+		@playlist = []
+		@artists = []
+		@tracks = []
+		@playtime = []
+	end
 
 	# methods for data persistency
 	def save_to_disk
@@ -17,6 +26,7 @@ class Storage
 			@@store["artists"] = @artists
 			@@store["tracks"] = @tracks
 			@@store["playlist"] = @playlist
+			@@store["playtime"] = @playtime
 			@@store.commit
 		end
 	end
@@ -26,12 +36,13 @@ class Storage
 			@artists = @@store["artists"] || Array.new
 			@tracks = @@store["tracks"] || Array.new
 			@playlist = @@store["playlist"] || Array.new
+			@playtime = @@store["playtime"] || Array.new
 		end
 		puts "Data Loading Complete"
 	end
 
 	# methods for tracks
-	def track_contains name
+	def tracks_contains name
 		@tracks.length.times do |index|
 			return @tracks[index] if name == @tracks[index].get_name
 		end
@@ -78,7 +89,14 @@ class Storage
 		@artists.push(artist)
 	end
 
-
 	# methods for playlist
+	def add_to_playlist track
+		@playlist.unshift(track)
+		@playtime.unshift(track.get_lastplayed)
+		if @playlist.length > @@history_max
+			@playlist.pop
+			@playtime.pop
+		end
+	end
 	
 end

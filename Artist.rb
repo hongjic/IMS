@@ -8,7 +8,7 @@ class Artist
 	end
 
 	def info
-		"Artistname: #{@name}\n Id: #{@id}"
+		"Artistname: #{@name}\nId: #{@id}"
 	end
 
 	def generate_id

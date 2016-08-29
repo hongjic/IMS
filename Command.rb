@@ -5,7 +5,8 @@ class Command
 	def self.extract text
 		arr = []
 		text.scan(/"[^"]+"/) do |st|
-			arr.push(st)
+			len = st.length
+			arr.push(st[1,len-2])
 		end
 		arr
 	end
@@ -13,27 +14,34 @@ class Command
 	def self.interpret text
 		text = text.gsub(/ +/, ' ')
 		case text
-		when /\A ?exit ?\z/
+		when /\A ?clear ?\n\z/
+			["clear"]
+		when /\A ?exit ?\n\z/
 			["exit"]
-		when /\A ?help ?\z/
+		when /\A ?help ?\n\z/
 			["help"]
-		when /\A ?info ?\z/
+		when /\A ?info ?\n\z/
 			["info"]
-		when /\A ?add track "[^"]+" by "[^"]+" ?\z/
+		when /\A ?all tracks ?\n\z/
+			["all_tracks"]
+		when /\A ?all artists ?\n\z/
+			["all_artists"]
+		when /\A ?add track "[^"]+" by "[^"]+" ?\n\z/
 			command = ["add_track"] + extract(text)
-		when /\A ?add artist "[^"]+" ?\z/
+		when /\A ?add artist "[^"]+" ?\n\z/
 			command = ["add_artist"] + extract(text)
-		when /\A ?info track "[^"]+" ?\z/
+		when /\A ?info track "[^"]+" ?\n\z/
 			command = ["info_track"] + extract(text)
-		when /\A ?info artist "[^"]+" ?\z/
+		when /\A ?info artist "[^"]+" ?\n\z/
 			command = ["info_artist"] + extract(text)
-		when /\A ?play track "[^"]+" ?\z/
+		when /\A ?play track "[^"]+" ?\n\z/
 			command = ["play_track"] + extract(text)
-		when /\A ?count tracks by "[^"]+" ?\z/
+		when /\A ?count tracks by "[^"]+" ?\n\z/
 			command = ["count_tracks_by"] + extract(text)
-		when /\A ?list tracks by "[^"]+" ?\z/
+		when /\A ?list tracks by "[^"]+" ?\n\z/
 			command = ["list_tracks_by"] + extract(text)
 		else
 			false
+		end
 	end
 end
