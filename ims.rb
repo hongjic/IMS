@@ -24,7 +24,7 @@ class IMS
 				"add track\n", "play track\n", "count tracks\n", "list tracks\n"
 				eval(command)
 			else 
-				puts "no such command"
+				puts "no such command" 
 			end
 		end
 	end
