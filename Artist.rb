@@ -7,6 +7,10 @@ class Artist
 		generate_id
 	end
 
+	def info
+		"Artistname: #{@name}\n Id: #{@id}"
+	end
+
 	def generate_id
 		arr = @name.split(' ')
 		id = ""

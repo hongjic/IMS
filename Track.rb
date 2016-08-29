@@ -9,6 +9,10 @@ class Track
 		@times = @times + 1
 	end
 
+	def info
+		"Trakname: #{@name}\nArtist: #{@artist.get_name}\nPlayed times: #{@times}"
+	end
+
 	def get_times
 		@times
 	end

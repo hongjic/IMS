@@ -1,4 +1,5 @@
 # interpret the command
+
 class Command
 
 	def self.extract text
@@ -13,17 +14,26 @@ class Command
 		text = text.gsub(/ +/, ' ')
 		case text
 		when /\A ?exit ?\z/
-			return "exit"
+			["exit"]
 		when /\A ?help ?\z/
-			return "help"
+			["help"]
 		when /\A ?info ?\z/
-			return "info"
-		when /\A ?add track "[^"]+" by "[^"]+"\z/
+			["info"]
+		when /\A ?add track "[^"]+" by "[^"]+" ?\z/
 			command = ["add_track"] + extract(text)
-		when /\A ?add artist "[^"]+"\z/
+		when /\A ?add artist "[^"]+" ?\z/
 			command = ["add_artist"] + extract(text)
-		when 
+		when /\A ?info track "[^"]+" ?\z/
+			command = ["info_track"] + extract(text)
+		when /\A ?info artist "[^"]+" ?\z/
+			command = ["info_artist"] + extract(text)
+		when /\A ?play track "[^"]+" ?\z/
+			command = ["play_track"] + extract(text)
+		when /\A ?count tracks by "[^"]+" ?\z/
+			command = ["count_tracks_by"] + extract(text)
+		when /\A ?list tracks by "[^"]+" ?\z/
+			command = ["list_tracks_by"] + extract(text)
 		else
-			return "command wrong"
+			false
 	end
 end

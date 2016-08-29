@@ -33,7 +33,7 @@ class Storage
 	# methods for tracks
 	def track_contains name
 		@tracks.length.times do |index|
-			return true if name == @tracks[index].get_name
+			return @tracks[index] if name == @tracks[index].get_name
 		end
 		false
 	end
@@ -46,22 +46,30 @@ class Storage
 		# search by artist's name
 		list = []
 		@tracks.each do |track|
-			list.push(track) if track.get_artist.get_name == artist.get_name
+			list.push(track) if track.get_artist.get_id == artist.get_id
 		end
 		list
+	end
+
+	def count_tracks_by artist 
+		sum = 0
+		@tracks.each do |track|
+			sum = sum+1 if track.get_artist.get_id == artist.get_id
+		end
+		sum
 	end
 
 	# methods for artists
 	def artists_id_contains id
 		@artists.length.times do |index|
-			return true if id == @artists[index].get_id
+			return @artists[index] if id == @artists[index].get_id
 		end
 		false
 	end
 
 	def artists_contains name
 		@artists.length.times do |index|
-			return true if name == @artists[index].get_name
+			return artists[index] if name == @artists[index].get_name
 		end
 		false
 	end
@@ -69,6 +77,7 @@ class Storage
 	def add_artist artist
 		@artists.push(artist)
 	end
+
 
 	# methods for playlist
 	

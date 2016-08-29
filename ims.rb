@@ -2,6 +2,7 @@
 require_relative "Storage"
 require_relative "Artist"
 require_relative "Track"
+require_relative "Command"
 
 class IMS
 
@@ -14,17 +15,34 @@ class IMS
 		puts "wellcome to IMS"
 		while (true)
 			print "> "
-			command = gets
-			puts  "Your last command was #{command}"
+			text = gets
+			puts  "Your last command was #{text}"
 			#byebug
-			case command
-			when "exit\n"
-				exit_ims
-			when "help\n", "info\n", "info track\n", "info artist\n", "add artist\n",
-				"add track\n", "play track\n", "count tracks\n", "list tracks\n"
-				eval(command.gsub('', '_'))
+			if false == command = Command.interpret(text) 
+				puts "command wrong"
 			else 
-				puts "no such command" 
+				case command[0]
+				when "exit"
+					exit_ims
+				when "help"
+					help
+				when "info"
+					info
+				when "add_track"
+					puts add_track(command[1], command[2])
+				when "add_artist"
+					puts add_artist(command[1])
+				when "info_track"
+					puts info_track(command[1])
+				when "info_artist"
+					puts info_artist(command[1])
+				when "play_track"
+					puts play_tack(command[1])
+				when "count_tracks_by"
+					puts count_tracks_by(command[1])
+				when "list_tracks_by"
+					puts list_tracks_by(command[1])
+				end
 			end
 		end
 	end
@@ -71,6 +89,52 @@ class IMS
 	end
 
 	def add_track trackname, artistid
-		return false if 
+		return "Trackname already exists." if @storage.track_contains trackname
+		artist = @storage.artist_id_contains artistid
+		return "There is no such artist" if !artist
+		@storage.add_track Track.new(trackname, artist)
+		"Add track success."
+	end
+
+	def add_artist artistname
+		return "Artistname already exists." if @storage.artists_contains artistname
+		@storage.add_artist Artist.new(artistname)
+		"Add artist success."
+	end
+
+	def info_track trackname
+		track = @storage.track_contains trackname
+		return "There is no such track." if !track
+		track.info
+	end
+
+	def info_artist artistid
+		artist = @storage.artist_id_contains artistid
+		return "There is no such artist." if !artist
+		artist.info
+	end
+
+	def play_track trackname
+		track = @storage.track_contains trackname
+		return "There is no such track." if !trackname
+		track.play
+		"Play #{trackname}."
+	end
+
+	def count_tracks_by artistid
+		artist = @storage.artist_id_contains artistid
+		return "There is no such artist." if !artist
+		sum = @storage.count_tracks_by artist
+		"#{sum} tracks are known by #{artistid}"
+	end
+
+	def list_tracks_by artistid
+		artist = @storage.artist_id_contains artistid
+		return "There is no such artist." if !artist
+		res = ""
+		@storage.list_tracks_by(artist).each do |track|
+			res += track.get_name + "\n"
+		end
+		res
 	end
 end
