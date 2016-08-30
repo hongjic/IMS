@@ -26,9 +26,9 @@ class IMS
 				when 1
 					eval(command[0])
 				when 2
-					eval(command[0] + "(" + command[1] + ")")
+					eval(command[0] + "(\"" + command[1] + "\")")
 				when 3
-					eval(command[0] + "(" + command[1] + ", " + command[2] + ")")
+					eval(command[0] + "(\"" + command[1] + "\", \"" + command[2] + "\")")
 				end
 			end
 		end
