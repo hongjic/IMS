@@ -1,0 +1,5 @@
+require_relative "ims"
+
+ims = IMS.new
+ims.fetch_data
+ims.run
