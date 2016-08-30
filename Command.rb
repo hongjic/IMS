@@ -17,7 +17,7 @@ class Command
 		when /\A ?clear ?\n\z/
 			["clear"]
 		when /\A ?exit ?\n\z/
-			["exit"]
+			["exit_ims"]
 		when /\A ?help ?\n\z/
 			["help"]
 		when /\A ?info ?\n\z/
