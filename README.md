@@ -1,4 +1,8 @@
-#IMS
+IMS
+=============================
+[![Code Climate](https://codeclimate.com/github/hongjic/IMS/badges/gpa.svg)](https://codeclimate.com/github/hongjic/IMS)
+[![Issue Count](https://codeclimate.com/github/hongjic/IMS/badges/issue_count.svg)](https://codeclimate.com/github/hongjic/IMS)
+
 ims is a text baased Interactive music shell with simple commands
 
 use ``ruby ims.rb`` to start the program
