@@ -196,9 +196,4 @@ class IMS
 		end
 		puts res
 	end
-
 end
-
-ims = IMS.new
-ims.fetch_data
-ims.run
