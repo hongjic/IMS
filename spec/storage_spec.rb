@@ -10,7 +10,7 @@ describe Storage do
 		@storage.clear
 		@chj = Artist.new("chen hong ji")
 		@lyf = Artist.new("liu yi fei")
-		@storage.artists = [@chj, @lyf]
+		@storage.artists = { "chj" => @chj, "lyf" => @lyf}
 		@track_ha = Track.new("hahaha", @chj, 0)
 		@track_ha.play
 		@storage.tracks.push(@track_ha)

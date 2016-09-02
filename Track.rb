@@ -1,8 +1,8 @@
 class Track
 
-	def initialize name,artist,id
+	def initialize name,artistid,id
 		@name = name
-		@artist = artist
+		@artistid = artistid
 		@id = id
 		@times = 0
 		@lastplayed = "Not played yet."
@@ -14,7 +14,7 @@ class Track
 	end
 
 	def info
-		res = "No: #{@id}\nTrakname: #{@name}\nArtist: #{@artist.get_name}\nPlayed times: #{@times}"
+		res = "No: #{@id}\nTrakname: #{@name}\nArtistId: #{@artistid}\nPlayed times: #{@times}"
 		res += "\nLast time played: #{@lastplayed}" if @times >0
 		res
 	end
@@ -31,8 +31,8 @@ class Track
 		@name
 	end
 
-	def get_artist
-		@artist
+	def get_artistid
+		@artistid
 	end	
 
 	def get_lastplayed

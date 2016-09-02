@@ -100,8 +100,8 @@ class IMS
 
 	def all_artists
 		res = ""
-		@storage.artists.each { |artist| res += "Id: #{artist.get_id}  Name: #{artist.get_name}\n"}
-		res += "Altogether #{@storage.artists.length} artists."
+		@storage.artists.each { |id, artist| res += "Id: #{id}  Name: #{artist.get_name}\n"}
+		res += "Altogether #{@storage.artists.size} artists."
 		puts res
 	end
 
@@ -110,13 +110,12 @@ class IMS
 			puts "Trackname already exists."
 			return 
 		end
-		artist = @storage.artists_id_contains artistid
-		if !aritst 
+		unless @storage.artists_id_contains artistid 
 			puts "There is no such artist."
 			return
 		end
 		id = @storage.tracks.length
-		@storage.add_track Track.new(trackname, artist, id)
+		@storage.add_track Track.new(trackname, artistid, id)
 		puts "Add track success."
 	end
 
@@ -144,12 +143,11 @@ class IMS
 	end
 
 	def info_artist artistid
-		artist = @storage.artists_id_contains artistid
-		if !artist
+		unless @storage.artists_id_contains artistid
 			puts "There is no such artist."
 			return
 		end
-		puts artist.info
+		puts @storage.artists[artistid].info
 	end
 
 	def play_track trackid
@@ -169,24 +167,22 @@ class IMS
 	end
 
 	def count_tracks_by artistid
-		artist = @storage.artists_id_contains artistid
-		if !artist
+		unless @storage.artists_id_contains artistid
 			puts "There is no such artist."
 			return
 		end 
-		sum = @storage.count_tracks_by artist
+		sum = @storage.count_tracks_by artistid
 		puts "#{sum} tracks are known by #{artistid}"
 	end
 
 	def list_tracks_by artistid
-		artist = @storage.artists_id_contains artistid
-		if !artist
+		unless @storage.artists_id_contains artistid
 			puts "There is no such artist."
 			return
 		end
 		res = ""
 		count = 1
-		@storage.list_tracks_by(artist).each do |track|
+		@storage.list_tracks_by(artistid).each do |track|
 			res += count.to_s + ". " + track.get_name + "\n"
 			count += 1
 		end

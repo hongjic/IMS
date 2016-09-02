@@ -6,7 +6,8 @@ describe Artist do
 	before {
 		@storage = Storage.instance
 		@storage.clear
-		@storage.artists.push(Artist.new("chen hong ji"))
+		# @storage.artists.push(Artist.new("chen hong ji"))
+		@storage.artists["chj"] = Artist.new("chen hong ji");
 	}
 
 	it "should create id by default(initial words) correctly" do

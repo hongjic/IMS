@@ -15,7 +15,7 @@ class Storage
 
 	def clear
 		@playlist = []
-		@artists = []
+		@artists = {}
 		@tracks = []
 		@playtime = []
 	end
@@ -33,10 +33,10 @@ class Storage
 
 	def read_from_disk
 		@@store.transaction(true) do
-			@artists = @@store["artists"] || Array.new
-			@tracks = @@store["tracks"] || Array.new
-			@playlist = @@store["playlist"] || Array.new
-			@playtime = @@store["playtime"] || Array.new
+			@artists = @@store["artists"] || {}
+			@tracks = @@store["tracks"] || []
+			@playlist = @@store["playlist"] || []
+			@playtime = @@store["playtime"] || []
 		end
 		puts "Data Loading Complete"
 	end
@@ -53,40 +53,37 @@ class Storage
 		@tracks.push(track)
 	end
 
-	def list_tracks_by artist # Class: Artist
+	def list_tracks_by artistid # 
 		# search by artist's name
 		list = []
 		@tracks.each do |track|
-			list.push(track) if track.get_artist.get_id == artist.get_id
+			list.push(track) if track.get_artistid == artistid
 		end
 		list
 	end
 
-	def count_tracks_by artist 
+	def count_tracks_by artistid
 		sum = 0
 		@tracks.each do |track|
-			sum = sum+1 if track.get_artist.get_id == artist.get_id
+			sum = sum+1 if track.get_artistid == artistid
 		end
 		sum
 	end
 
 	# methods for artists
 	def artists_id_contains id
-		@artists.length.times do |index|
-			return @artists[index] if id == @artists[index].get_id
-		end
-		false
+		return @artists.has_key? id
 	end
 
 	def artists_contains name
-		@artists.length.times do |index|
-			return artists[index] if name == @artists[index].get_name
+		@artists.each do |id, artist|
+			return artist if artist.get_name == name
 		end
 		false
 	end
 
 	def add_artist artist
-		@artists.push(artist)
+		@artists[artist.get_id] = artist
 	end
 
 	# methods for playlist
